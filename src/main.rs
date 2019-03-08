@@ -15,7 +15,7 @@ fn run() -> cli::error::Result<()> {
 		commit: env!("VERGEN_SHA_SHORT"),
 		version: env!("CARGO_PKG_VERSION"),
 		executable_name: "substratekities",
-		author: "koichi.matsuda@infobahn.co.jp",
+		author: "koichi.matsuda",
 		description: "substratekities",
 		support_url: "support.anonymous.an",
 	};

@@ -20,6 +20,7 @@ pub enum Alternative {
 	Development,
 	/// Whatever the current runtime is, with simple Alice/Bob auths.
 	LocalTestnet,
+	IbTestnet,
 }
 
 impl Alternative {
@@ -64,12 +65,33 @@ impl Alternative {
 				None,
 				None
 			),
+			Alternative::IbTestnet => ChainSpec::from_genesis(
+				"IB Chain",
+				"ib_chain",
+				|| testnet_genesis(vec![
+					ed25519::Pair::from_seed(b"Matsuda                         ").public().into(),
+				], vec![
+					ed25519::Pair::from_seed(b"Matsuda                         ").public().0.into(),
+				],
+					ed25519::Pair::from_seed(b"Matsuda                         ").public().0.into(),
+				),
+				vec![],
+				None,
+				None,
+				None,
+				None
+			),
 		})
 	}
-
+	// $ subkey restore Matsuda
+	//Seed 0x4d61747375646120202020202020202020202020202020202020202020202020 is account:
+  // Public key (hex): 0x9d361c06d36e411422e49d14d00f5128662b8f84567400ee26aaeb3cfc8f7f77
+  // Address (SS58): 5FcqSzTdr3zeiMan8S48Rz7yP8fG3YYkzjpD1iaSBAuihkME
+	
 	pub(crate) fn from(s: &str) -> Option<Self> {
 		match s {
 			"dev" => Some(Alternative::Development),
+			"ib" => Some(Alternative::IbTestnet),
 			"" | "local" => Some(Alternative::LocalTestnet),
 			_ => None,
 		}
@@ -100,7 +122,7 @@ fn testnet_genesis(initial_authorities: Vec<Ed25519AuthorityId>, endowed_account
 			key: root_key,
 		}),
 		fees: Some(FeesConfig {
-			transaction_base_fee: 1,
+			transaction_base_fee: 0,
 			transaction_byte_fee: 0,
 		})
 	}

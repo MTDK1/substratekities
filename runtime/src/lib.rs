@@ -46,6 +46,10 @@ pub type BlockNumber = u64;
 /// Index of an account's extrinsic in the chain.
 pub type Nonce = u64;
 
+// Add this line
+mod substratekitties;
+mod ibchain; // IBChain
+
 /// Used for the module template in `./template.rs`
 mod template;
 
@@ -175,6 +179,15 @@ impl sudo::Trait for Runtime {
 	type Proposal = Call;
 }
 
+// Add this line
+impl substratekitties::Trait for Runtime {
+	type Event = Event;
+}
+
+impl ibchain::Trait for Runtime {
+	type Event = Event;
+} // IBChain
+
 /// Used for the module template in `./template.rs`
 impl template::Trait for Runtime { 
 	type Event = Event;
@@ -194,6 +207,10 @@ construct_runtime!(
 		Balances: balances,
 		Sudo: sudo,
 		Fees: fees::{Module, Storage, Config<T>, Event<T>},
+		// Add this line
+    Substratekitties: substratekitties::{Module, Call, Storage, Event<T>},
+		// IBChain
+		IBChain: ibchain::{Module, Call, Storage, Event<T>},
 		// Used for the module template in `./template.rs`
 		TemplateModule: template::{Module, Call, Storage, Event<T>},
 	}
