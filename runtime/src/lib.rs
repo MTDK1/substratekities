@@ -48,7 +48,8 @@ pub type Nonce = u64;
 
 // Add this line
 mod substratekitties;
-mod ibchain; // IBChain
+// Add this line
+mod ibchain;
 
 /// Used for the module template in `./template.rs`
 mod template;
